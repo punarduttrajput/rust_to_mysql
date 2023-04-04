@@ -21,10 +21,21 @@ fn main() {
     //creating a connection
     let mut conn = pool.get_conn().unwrap();
 
+    let mut username = String::new();
+    println!("Enter your employee id :");
+    std::io::stdin().read_line(&mut username).unwrap();
+    let empid: i64 = username.trim().parse().expect("username");
+    println!("Employee ID:{}", empid);
 
+    let mut pswrd = String::new();
+    println!("Enter your password :");
+    std::io::stdin().read_line(&mut pswrd).unwrap();
 
-    //retrieving data for login
-    fn login(cn: &mut PooledConn, pasw: String, empid: i64) {
+    login(&mut conn, pswrd, empid);
+}
+
+//retrieving data for login
+ fn login(cn: &mut PooledConn, pasw: String, empid: i64) {
         let y=format!("select EmployeeID, EmployeeFirstName, EmployeeLastName, EmployeeEmail, password, UserTypeId from employee where EmployeeID= {}",empid);
         let res = cn
             .query_map(
@@ -67,15 +78,4 @@ fn main() {
         }
     }
 
-    let mut username = String::new();
-    println!("Enter your employee id :");
-    std::io::stdin().read_line(&mut username).unwrap();
-    let empid: i64 = username.trim().parse().expect("username");
-    println!("Employee ID:{}", empid);
-
-    let mut pswrd = String::new();
-    println!("Enter your password :");
-    std::io::stdin().read_line(&mut pswrd).unwrap();
-
-    login(&mut conn, pswrd, empid);
-}
+    
