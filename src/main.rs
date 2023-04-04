@@ -16,12 +16,12 @@ struct Employee {
 }
 
 fn main() {
-    let url = "mysql://root:7860$Ankit@localhost:3306/mcn";
+    let url = "mysql://your_username:password@localhost:3306/db_name";
     let pool = Pool::new(url).unwrap();
-
+    //creating a connection
     let mut conn = pool.get_conn().unwrap();
 
-    let now = SystemTime::now();
+
 
     //retrieving data for login
     fn login(cn: &mut PooledConn, pasw: String, empid: i64) {
